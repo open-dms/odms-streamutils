@@ -7,7 +7,7 @@ A collection of simple stream implementations for building data pipelines.
 For instance, you may want to use these utility streams for building your pipeline:
 
 ```typescript
-import { http, json, split, throttle, toString } from "@odms/streamutils";
+import { json, split, toString } from "@odms/streamutils";
 import { pipeline } from "node:stream";
 
 pipeline(
