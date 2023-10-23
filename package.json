@@ -2,6 +2,12 @@
   "name": "@odms/streamutils",
   "version": "1.0.0",
   "description": "A collection of simple stream implementations for building data pipelines.",
+  "keywords": [
+    "node",
+    "utils",
+    "streams",
+    "pipelines"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": false,
@@ -14,7 +20,6 @@
     "clean": "rimraf ./dist",
     "build": "npm run clean && tsc"
   },
-  "keywords": [],
   "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
   "license": "MIT",
   "repository": {
