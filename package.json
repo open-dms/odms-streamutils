@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc"
   },
   "keywords": [],
   "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.8.7",
+    "rimraf": "^5.0.5",
     "typescript": "^5.2.2"
   },
   "dependencies": {
