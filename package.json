@@ -1,0 +1,15 @@
+{
+  "name": "@odms/streamutils",
+  "version": "1.0.0",
+  "description": "A collection of simple stream implementations for building data pipelines.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
+  "license": "MIT",
+  "repository": {
+    "url": "git@github.com:open-dms/odms-streamutils.git"
+  }
+}
