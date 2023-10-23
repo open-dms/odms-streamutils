@@ -1,6 +1,7 @@
 import { throttle } from ".";
+import { describe, expect, it, vi } from "vitest";
 
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 describe("TimerStream", () => {
   it("should throttle", async () => {
@@ -19,12 +20,12 @@ describe("TimerStream", () => {
     await new Promise((resolve) => stream.once("data", resolve));
     expect(result).toHaveLength(1);
 
-    jest.advanceTimersByTime(throttleTime / 2);
+    vi.advanceTimersByTime(throttleTime / 2);
     expect(result).toHaveLength(1);
-    jest.advanceTimersByTime(throttleTime / 2);
+    vi.advanceTimersByTime(throttleTime / 2);
     expect(result).toHaveLength(2);
 
-    jest.advanceTimersByTime(throttleTime);
+    vi.advanceTimersByTime(throttleTime);
     expect(result).toHaveLength(3);
 
     await new Promise((resolve) => stream.on("end", resolve));
@@ -66,12 +67,12 @@ describe("TimerStream", () => {
 
     stream.report(3000);
 
-    jest.advanceTimersByTime(1500);
+    vi.advanceTimersByTime(1500);
     expect(result).toHaveLength(2);
-    jest.advanceTimersByTime(1500);
+    vi.advanceTimersByTime(1500);
     expect(result).toHaveLength(2);
 
-    jest.advanceTimersByTime(1500);
+    vi.advanceTimersByTime(1500);
     expect(result).toHaveLength(3);
 
     await new Promise((resolve) => stream.on("end", resolve));
