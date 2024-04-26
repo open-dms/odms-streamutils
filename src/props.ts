@@ -1,5 +1,15 @@
 import { Transform } from "node:stream";
 
+/**
+ * Transform chunkts of type `Record<string, unknown>`, picking a prop.
+ *
+ * ```ts
+ * const stream = props.get('foo');
+ * stream.on('data', (data: string) => console.log(data));
+ * stream.end({ foo: 'bar' });
+ * // bar
+ * ```
+ */
 const get = (propName: string) =>
   new Transform({
     objectMode: true,

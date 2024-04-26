@@ -63,5 +63,20 @@ class ThrottleStream extends Transform {
   }
 }
 
+/**
+ * Returns a `ThrottleStream` initialized with `options`.
+ *
+ * Passes input chunks only after `throttleTime` has elapsed. `throttleTime`
+ * only functions as a base timeout. Using `throttleTimeAdjustMethod`, it's
+ * possible to adjust the timeout according to some factors. This way it's
+ * possible to handle back pressure.
+ *
+ * For implementation options of `throttleTimeAdjustMethod`, refer to
+ * `defaultThrottleTimeAdjustMethod`.
+ *
+ * ```ts
+ * const timer = throttle({ throttleTime: 300 });
+ * ```
+ */
 export const throttle = (options?: ThrottleStreamOptions) =>
   new ThrottleStream(options);
