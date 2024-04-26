@@ -1,7 +1,8 @@
+import { describe, expect, it } from "bun:test";
+import { fakeTimers } from "./test/fake-timers";
 import { throttle } from ".";
-import { describe, expect, it, vi } from "vitest";
 
-vi.useFakeTimers();
+const clock = fakeTimers();
 
 describe("TimerStream", () => {
   it("should throttle", async () => {
@@ -9,31 +10,35 @@ describe("TimerStream", () => {
     const throttleTime = 1500;
 
     const stream = throttle({ throttleTime });
-    stream.write("data-1");
-    stream.write("data-2");
-    stream.end("data-3");
 
     stream.on("data", (data) => {
       result.push(data);
     });
 
-    await new Promise((resolve) => stream.once("data", resolve));
+    const streamEnded = new Promise((resolve) => stream.on("end", resolve));
+
+    stream.write("data-1");
+    stream.write("data-2");
+    stream.end("data-3");
+
     expect(result).toHaveLength(1);
 
-    vi.advanceTimersByTime(throttleTime / 2);
+    clock.tick(throttleTime / 2);
     expect(result).toHaveLength(1);
-    vi.advanceTimersByTime(throttleTime / 2);
+    clock.tick(throttleTime / 2);
     expect(result).toHaveLength(2);
 
-    vi.advanceTimersByTime(throttleTime);
+    clock.tick(throttleTime);
     expect(result).toHaveLength(3);
 
-    await new Promise((resolve) => stream.on("end", resolve));
+    // assert stream has ended
+    expect(streamEnded).resolves.toBeUndefined();
 
     expect(result).toEqual(["data-1", "data-2", "data-3"]);
+    await streamEnded;
   });
 
-  it("should adjust throttling time based on reprted times", () => {
+  it("should adjust throttling time based on reported times", () => {
     const stream = throttle({ throttleTime: 1500 });
     expect(stream.throttleTime).toBe(1500);
     stream.report(3000);
@@ -54,27 +59,29 @@ describe("TimerStream", () => {
     const throttleTime = 1500;
 
     const stream = throttle({ throttleTime });
-    stream.write("data-1");
-    stream.write("data-2");
-    stream.end("data-3");
 
     stream.on("data", (data) => {
       result.push(data);
     });
 
-    await new Promise((resolve) => stream.once("data", resolve));
+    const streamEnded = new Promise((resolve) => stream.on("end", resolve));
+
+    stream.write("data-1");
+    stream.write("data-2");
+    stream.end("data-3");
+
     expect(result).toHaveLength(1);
 
     stream.report(3000);
 
-    vi.advanceTimersByTime(1500);
+    clock.tick(1500);
     expect(result).toHaveLength(2);
-    vi.advanceTimersByTime(1500);
+    clock.tick(1500);
     expect(result).toHaveLength(2);
-
-    vi.advanceTimersByTime(1500);
+    clock.tick(1500);
     expect(result).toHaveLength(3);
 
-    await new Promise((resolve) => stream.on("end", resolve));
+    // assert stream has ended
+    expect(streamEnded).resolves.toBeUndefined();
   });
 });

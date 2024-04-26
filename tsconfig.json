@@ -1,14 +1,29 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "./dist",
-    "strict": true,
+    // Enable latest features
+    "lib": ["ESNext"],
     "target": "ESNext",
-    "declarationMap": true
-  },
-  "include": ["src/**/*.ts"]
+    "module": "ESNext",
+    "moduleDetection": "force",
+
+    "declaration": true,
+    "declarationMap": true,
+
+    // Bundler mode
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Some stricter flags
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    "rootDir": "./src",
+    "outDir": "./dist"
+  }
 }

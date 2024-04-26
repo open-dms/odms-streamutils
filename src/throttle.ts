@@ -1,5 +1,5 @@
 import { Transform } from "node:stream";
-import { TransformCallback } from "stream";
+import type { TransformCallback } from "stream";
 import { getMedian } from "./util";
 
 export type ThrottleTimeAdjustMethod = (
@@ -20,7 +20,7 @@ function defaultThrottleTimeAdjustMethod(
 }
 
 class ThrottleStream extends Transform {
-  private timeout?: NodeJS.Timeout;
+  private timeout?: Timer;
   private pushImmediate = true;
   private baseThrottleTime: number;
   private reportedTimes: Array<number> = [];
