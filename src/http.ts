@@ -18,7 +18,7 @@ export const http = {
         const start = Date.now();
 
         let error;
-        let response;
+        let response: Response | undefined;
 
         try {
           response = await fetch(request);
