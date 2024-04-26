@@ -23,7 +23,8 @@
     "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": true,
 
-    "rootDir": "./src",
     "outDir": "./dist"
-  }
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts", "src/test"]
 }
