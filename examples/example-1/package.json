@@ -1,0 +1,14 @@
+{
+  "name": "y",
+  "module": "y",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@odms/streamutils": "^0.1.2"
+  }
+}
