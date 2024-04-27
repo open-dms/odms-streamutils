@@ -1,6 +1,6 @@
 {
   "name": "@odms/streamutils",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
   "repository": {
     "url": "git@github.com:open-dms/odms-streamutils.git"
