@@ -22,6 +22,10 @@
     "!src/test",
     "!src/**/*.spec.ts"
   ],
+  "engines": {
+    "node": ">=20",
+    "bun": ">=1.1.5"
+  },
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "bun run clean && tsc",
