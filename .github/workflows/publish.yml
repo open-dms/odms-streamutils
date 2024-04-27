@@ -2,8 +2,44 @@ name: Publish Package to npmjs
 on:
   release:
     types: [published]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
   build:
+    name: "Build and publish to npm"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "21.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1.2.1
+
+      - run: bun install
+      - run: bun run build
+
+      - name: Create coverage
+        run: ./scripts/coverage-badge.sh
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload coverage.svg
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./coverage"
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy-coverage:
     permissions:
       pages: write
       id-token: write
@@ -13,30 +49,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "21.x"
-          registry-url: "https://registry.npmjs.org"
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1.2.1
-      - run: bun install
-      - run: bun run build
+    needs: build
 
-      - name: Create coverage
-        run: ./scripts/coverage-badge.sh
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload coverage.svg
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./docs"
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
