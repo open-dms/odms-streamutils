@@ -1,14 +1,26 @@
 import { Transform } from "node:stream";
 
+/**
+ * Transforms chunks by splitting using a `delimiter`.
+ *
+ * The output chunks are automatically filtered and trimmed.
+ *
+ * ```ts
+ * const stream = split(',');
+ * stream.on('data', (data: string) => console.log(data));
+ * stream.end('Erfurt , , Ansbach');
+ * // Erfurt
+ * // Ansbach
+ * ```
+ */
 export const split = (delimiter: string) => {
   const stream = new Transform({
-    readableObjectMode: true,
-    transform: (chunk: Buffer, _, callback) => {
+    objectMode: true,
+    transform: (chunk: string, _, callback) => {
       chunk
-        .toString("utf8")
         .split(delimiter)
-        .filter((str) => str.length > 0)
         .map((str) => str.trim())
+        .filter((str) => str.length > 0)
         .forEach((str) => stream.push(str));
       callback();
     },

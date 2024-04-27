@@ -1,6 +1,10 @@
 {
   "name": "@odms/streamutils",
   "version": "0.1.2",
+  "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
+  "repository": {
+    "url": "git@github.com:open-dms/odms-streamutils.git"
+  },
   "description": "A collection of simple stream implementations for building data pipelines.",
   "keywords": [
     "node",
@@ -8,27 +12,28 @@
     "streams",
     "pipelines"
   ],
+  "license": "MIT",
+  "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "private": false,
   "files": [
+    "dist",
     "src",
-    "dist"
+    "!src/test",
+    "!src/**/*.spec.ts"
   ],
   "scripts": {
-    "test": "vitest run",
     "clean": "rimraf ./dist",
-    "build": "npm run clean && tsc"
-  },
-  "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
-  "license": "MIT",
-  "repository": {
-    "url": "git@github.com:open-dms/odms-streamutils.git"
+    "build": "bun run clean && tsc",
+    "test": "bun test src",
+    "test:coverage": "bun run test --coverage"
   },
   "devDependencies": {
-    "@types/node": "^20.8.7",
+    "@sinonjs/fake-timers": "^11.2.2",
+    "@types/bun": "^1.1.0",
+    "@types/node": "^20.12.7",
+    "@types/sinonjs__fake-timers": "^8.1.5",
     "rimraf": "^5.0.5",
-    "typescript": "^5.2.2",
-    "vitest": "^0.34.6"
+    "typescript": "^5.4.5"
   }
 }

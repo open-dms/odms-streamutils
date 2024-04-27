@@ -1,5 +1,18 @@
 import { Transform } from "node:stream";
 
+/**
+ * Transform each chunk using `JSON.parse()`.
+ *
+ * ```ts
+ * const stream = json.parse();
+ * stream.on('data', (data) => console.log(data));
+ * stream.write('{"a":"foo"}');
+ * stream.end('{"b":"bar"}');
+ * // produces:
+ * // { a: 'foo' }
+ * // { b: 'bar' }
+ * ```
+ */
 const parse = () =>
   new Transform({
     objectMode: true,
@@ -18,6 +31,19 @@ const parse = () =>
     },
   });
 
+/**
+ * Transform each chunk with `JSON.stringify`, appending a newline.
+ *
+ * ```ts
+ * const stream = json.toLines();
+ * stream.on('data', (data) => console.log(data));
+ * stream.write({ a: 'foo' });
+ * stream.end({ b: 'bar' });
+ * // produces:
+ * // {"a":"foo"}\n
+ * // {"b":"bar"}\n
+ * ```
+ */
 const toLines = () =>
   new Transform({
     writableObjectMode: true,
