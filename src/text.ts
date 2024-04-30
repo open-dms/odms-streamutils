@@ -39,3 +39,15 @@ export const join = (delimiter = "\n") =>
       callback(null, chunk.join(delimiter));
     },
   });
+
+/**
+ * Transforms chunks adding newline at the end.
+ *
+ */
+export const newline = () =>
+  new Transform({
+    objectMode: true,
+    transform(chunk, _, callback) {
+      callback(null, chunk + "\n");
+    },
+  });
