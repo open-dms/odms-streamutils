@@ -1,0 +1,12 @@
+diff --git a/node_modules/node-jq/lib/exec.js b/node_modules/node-jq/lib/exec.js
+index 4f3d7e7..d8646e8 100644
+--- a/node_modules/node-jq/lib/exec.js
++++ b/node_modules/node-jq/lib/exec.js
+@@ -41,7 +41,6 @@ var exec = function(command, args, stdin, cwd, detached) {
+                     return reject(err);
+                 }
+             });
+-            process.stdin.setEncoding("utf-8");
+             process.stdin.write(stdin);
+             process.stdin.end();
+         }
