@@ -27,3 +27,15 @@ export const split = (delimiter: string) => {
   });
   return stream;
 };
+
+/**
+ * Transform chunks of type array into strings.
+ *
+ */
+export const join = (delimiter = "\n") =>
+  new Transform({
+    objectMode: true,
+    transform(chunk: Array<unknown>, _, callback) {
+      callback(null, chunk.join(delimiter));
+    },
+  });
