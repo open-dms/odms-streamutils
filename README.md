@@ -71,6 +71,27 @@ This will produce this output:
 {"city":"Ansbach"}
 ```
 
+# Documentation
+
+## jq
+
+Transform the stream using `jq`.
+
+```ts
+import { jq } from "@odms/streamutils";
+
+pipeline(process.stdin, jq(".filter[].items"), process.out);
+```
+
+Thanks to [node-js](https://www.npmjs.com/package/node-jq). For filter syntax, refer to the [jq manual](https://jqlang.github.io/jq/).
+
+**Parameters**
+
+- filter: string  
+  filter used to work on the json
+
+  example: `.data[] | {id,name}`
+
 ---
 
 <center>Proudly developing with <a href="https://bun.sh/"><img alt="Bun typescript runtime" src="https://bun.sh/logo-square.png" height="24px" style="vertical-align: bottom;" /> Bun</a></center>
