@@ -1,5 +1,6 @@
 ![Bun Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fopen-dms%2Fodms-streamutils%2Fmain%2Fpackage.json&query=%24.engines.bun&logo=bun&logoColor=%23f9f1e1&label=Bun&color=%23f9f1e1)
 ![Typescript Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fopen-dms%2Fodms-streamutils%2Fmain%2Fpackage.json&query=%24.devDependencies.typescript&label=Typescript)
+![CodeQL](https://github.com/open-dms/odms-streamutils/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)
 ![Coverage](https://open-dms.github.io/odms-streamutils/coverage.svg)
 
 # Streamutils
