@@ -27,11 +27,26 @@ export const http = {
             response,
             responseTime: Date.now() - start,
           });
+          if (!response.ok) {
+            throw `${response.url} ${response.status} ${response.statusText}`;
+          }
         } catch (err) {
           error = err instanceof Error ? err : new Error(String(err));
         }
 
         callback(error, response);
+      },
+    }),
+
+  /**
+   * Transform the input stream items of type `Response` using `.json()`.
+   *
+   */
+  json: () =>
+    new Transform({
+      objectMode: true,
+      async transform(response, _, callback) {
+        callback(null, await response.json());
       },
     }),
 };
