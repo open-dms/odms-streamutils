@@ -94,4 +94,4 @@ Thanks to [node-js](https://www.npmjs.com/package/node-jq). For filter syntax, r
 
 ---
 
-<center>Proudly developing with <a href="https://bun.sh/"><img alt="Bun typescript runtime" src="https://bun.sh/logo-square.png" height="24px" style="vertical-align: bottom;" /> Bun</a></center>
+Proudly developing with <a href="https://bun.sh/"><img alt="Bun typescript runtime" src="https://bun.sh/logo-square.png" height="24px" /> Bun</a>
