@@ -11,6 +11,7 @@ A collection of simple stream implementations for building data pipelines.
 
 - refactor into monorepo
 - add jq package
+- update node-jq, remove patch
 
 ## Usage
 
