@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { jq } from "./jq";
-import { finished, pipeline } from "stream/promises";
+import { finished } from "stream/promises";
+import { jq } from ".";
 
 describe("jq", () => {
   it("should filter json string", async () => {

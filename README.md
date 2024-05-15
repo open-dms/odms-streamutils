@@ -10,6 +10,7 @@ A collection of simple stream implementations for building data pipelines.
 ## Latest Update: v0.3
 
 - refactor into monorepo
+- add jq package
 
 ## Usage
 
