@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { fakeTimers } from "./test/fake-timers";
+import { fakeTimers } from "@repo/test/fake-timers";
 import { throttle } from ".";
 
 const clock = fakeTimers();

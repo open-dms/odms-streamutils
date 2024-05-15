@@ -1,14 +1,13 @@
 {
-  "name": "y",
-  "module": "y",
+  "name": "@repo/example-1",
+  "module": "index.ts",
   "type": "module",
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "@types/bun": "^1.1.0",
+    "@types/node": "^20.12.7",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@odms/streamutils": "^0.1.2"
+    "@repo/core": "workspace:*"
   }
 }

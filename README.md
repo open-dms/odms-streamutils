@@ -7,6 +7,10 @@
 
 A collection of simple stream implementations for building data pipelines.
 
+## Latest Update: v0.3
+
+- refactor into monorepo
+
 ## Usage
 
 > check out this example here: [examples/example-1](./examples/example-1)

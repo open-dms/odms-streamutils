@@ -1,6 +1,6 @@
 {
   "name": "@odms/streamutils",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
   "repository": {
     "url": "git@github.com:open-dms/odms-streamutils.git"
@@ -14,34 +14,33 @@
   ],
   "license": "MIT",
   "private": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src",
-    "!src/test",
-    "!src/**/*.spec.ts"
-  ],
+  "type": "module",
+  "exports": {
+    ".": "./packages/core/dist/index.js"
+  },
   "engines": {
     "node": ">=20",
     "bun": ">=1.1.5"
   },
+  "workspaces": [
+    "packages/core",
+    "packages/test",
+    "examples/example-1"
+  ],
+  "files": [
+    "packages/core/dist",
+    "packages/core/src",
+    "!packages/core/src/*.spec.ts"
+  ],
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "bun run clean && tsc",
+    "build": "bun run clean && tsc --build",
     "test": "bun test src",
     "test:coverage": "bun run test --coverage",
     "postinstall": "bunx patch-package"
   },
   "devDependencies": {
-    "@sinonjs/fake-timers": "^11.2.2",
-    "@types/bun": "^1.1.0",
-    "@types/node": "^20.12.7",
-    "@types/sinonjs__fake-timers": "^8.1.5",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
-  },
-  "dependencies": {
-    "node-jq": "^4.3.1"
   }
 }
