@@ -33,14 +33,11 @@
     "!packages/core/src/*.spec.ts"
   ],
   "scripts": {
-    "clean": "rimraf ./dist",
-    "build": "bun run clean && tsc --build",
-    "test": "bun test src",
-    "test:coverage": "bun run test --coverage",
+    "clean": "tsc --build --clean",
+    "build": "tsc --build",
     "postinstall": "bunx patch-package"
   },
   "devDependencies": {
-    "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
   },
   "dependencies": {
