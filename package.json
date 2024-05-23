@@ -12,26 +12,32 @@
   },
   "keywords": [
     "node",
-    "utils",
-    "streams",
-    "pipelines"
+    "bun",
+    "util",
+    "stream",
+    "pipeline",
+    "redis"
   ],
   "license": "MIT",
   "private": false,
   "type": "module",
   "exports": {
     ".": "./packages/core/dist/index.js",
-    "./jq": "./packages/jq/dist/index.js"
+    "./jq": "./packages/jq/dist/index.js",
+    "./redis": "./packages/redis/dist/index.js"
   },
   "files": [
     "packages/core/dist",
     "packages/core/src",
     "packages/jq/dist",
-    "packages/jq/src"
+    "packages/jq/src",
+    "packages/redis/dist",
+    "packages/redis/src"
   ],
   "workspaces": [
     "packages/core",
     "packages/jq",
+    "packages/redis",
     "packages/test",
     "examples/example-1"
   ],
@@ -40,9 +46,11 @@
     "build": "tsc --build"
   },
   "devDependencies": {
-    "typescript": "^5.4.5"
-  },
-  "dependencies": {
     "@types/node": "^20.12.12"
+  },
+  "peerDependencies": {
+    "node-jq": "^4.3.2",
+    "redis": "^4.6.14",
+    "typescript": "^5.4.5"
   }
 }

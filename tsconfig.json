@@ -1,4 +1,8 @@
 {
   "extends": "./tsconfig-base.json",
-  "references": [{ "path": "packages/core" }, { "path": "packages/jq" }]
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/jq" },
+    { "path": "packages/redis" }
+  ]
 }

@@ -1,0 +1,14 @@
+{
+  "name": "@repo/redis",
+  "module": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^20.12.7"
+  },
+  "dependencies": {
+    "redis": "^4.6.14"
+  }
+}
