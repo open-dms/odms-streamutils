@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
   "repository": {
-    "url": "git@github.com:open-dms/odms-streamutils.git"
+    "url": "git+ssh://git@github.com/open-dms/odms-streamutils.git"
   },
   "description": "A collection of simple stream implementations for building data pipelines.",
   "engines": {
