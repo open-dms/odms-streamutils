@@ -21,7 +21,7 @@ Let's say you have some input tokens in this form:
 
 _token.txt_
 
-```plain
+```
 "Erfurt"
 "Ansbach"
 ```
@@ -72,7 +72,7 @@ cat token.txt | bun index.ts
 
 This will produce this output:
 
-```plain
+```
 {"city":"Erfurt"}
 {"city":"Ansbach"}
 ```
