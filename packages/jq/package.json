@@ -1,0 +1,14 @@
+{
+  "name": "@repo/jq",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "node-jq": "^4.3.2"
+  }
+}

@@ -7,6 +7,12 @@
 
 A collection of simple stream implementations for building data pipelines.
 
+## Latest Update: v0.3
+
+- refactor into monorepo
+- add jq package
+- update node-jq, remove patch
+
 ## Usage
 
 > check out this example here: [examples/example-1](./examples/example-1)
@@ -15,7 +21,7 @@ Let's say you have some input tokens in this form:
 
 _token.txt_
 
-```plain
+```
 "Erfurt"
 "Ansbach"
 ```
@@ -66,7 +72,7 @@ cat token.txt | bun index.ts
 
 This will produce this output:
 
-```plain
+```
 {"city":"Erfurt"}
 {"city":"Ansbach"}
 ```

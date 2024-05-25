@@ -1,0 +1,13 @@
+{
+  "name": "@repo/test",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@sinonjs/fake-timers": "^11.2.2",
+    "@types/sinonjs__fake-timers": "^8.1.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,11 +1,15 @@
 {
   "name": "@odms/streamutils",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "Jakob Hohlfeld <jakob.hohlfeld@netronaut.de>",
   "repository": {
-    "url": "git@github.com:open-dms/odms-streamutils.git"
+    "url": "git+ssh://git@github.com/open-dms/odms-streamutils.git"
   },
   "description": "A collection of simple stream implementations for building data pipelines.",
+  "engines": {
+    "node": ">=20",
+    "bun": ">=1.1.8"
+  },
   "keywords": [
     "node",
     "utils",
@@ -14,34 +18,31 @@
   ],
   "license": "MIT",
   "private": false,
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src",
-    "!src/test",
-    "!src/**/*.spec.ts"
-  ],
-  "engines": {
-    "node": ">=20",
-    "bun": ">=1.1.5"
+  "type": "module",
+  "exports": {
+    ".": "./packages/core/dist/index.js",
+    "./jq": "./packages/jq/dist/index.js"
   },
+  "files": [
+    "packages/core/dist",
+    "packages/core/src",
+    "packages/jq/dist",
+    "packages/jq/src"
+  ],
+  "workspaces": [
+    "packages/core",
+    "packages/jq",
+    "packages/test",
+    "examples/example-1"
+  ],
   "scripts": {
-    "clean": "rimraf ./dist",
-    "build": "bun run clean && tsc",
-    "test": "bun test src",
-    "test:coverage": "bun run test --coverage",
-    "postinstall": "bunx patch-package"
+    "clean": "tsc --build --clean",
+    "build": "tsc --build"
   },
   "devDependencies": {
-    "@sinonjs/fake-timers": "^11.2.2",
-    "@types/bun": "^1.1.0",
-    "@types/node": "^20.12.7",
-    "@types/sinonjs__fake-timers": "^8.1.5",
-    "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "node-jq": "^4.3.1"
+    "@types/node": "^20.12.12"
   }
 }

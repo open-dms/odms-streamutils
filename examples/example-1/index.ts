@@ -1,4 +1,4 @@
-import { json, split, toString } from "@odms/streamutils";
+import { json, split, toString } from "@repo/core";
 import { Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 
