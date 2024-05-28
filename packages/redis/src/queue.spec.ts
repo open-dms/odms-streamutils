@@ -31,6 +31,34 @@ describe("redis", () => {
       expect(mockClient.rPush).toHaveBeenCalled();
       expect(mockClient.rPush.mock.lastCall).toEqual(["queue_key", "test1"]);
     });
+
+    it("should handle connection error", async () => {
+      mockClient.connect.mockRejectedValueOnce(Error("Connection error"));
+      const stream = await redisWriteQueue({
+        url: "redis://localhost",
+        channel: "queue_key",
+      });
+      await nextTick();
+      expect(stream.errored).toBeInstanceOf(Error);
+      expect(stream.errored?.message).toBe("Failed to connect to redis client");
+      expect(stream.errored?.cause).toEqual(Error("Connection error"));
+    });
+
+    it("should handle write error", async () => {
+      mockClient.rPush.mockImplementationOnce(() =>
+        Promise.reject(Error("Some redis error"))
+      );
+
+      const stream = await redisWriteQueue({
+        url: "redis://localhost",
+        channel: "queue_key",
+      });
+
+      expect(finished(stream.end("test"))).rejects.toHaveProperty(
+        "cause.message",
+        "Some redis error"
+      );
+    });
   });
 
   describe("read queue", () => {
