@@ -18,8 +18,8 @@ export const redisWriteQueue = async ({
       let error = null;
       try {
         await client.connect();
-      } catch (err) {
-        error = Error("Failed to connect to redis client", { cause: err });
+      } catch (cause) {
+        error = Error("Failed to connect to redis client", { cause });
       }
       callback(error);
     },
@@ -27,13 +27,17 @@ export const redisWriteQueue = async ({
       await client.quit();
       callback();
     },
-    async write(message: string, _, callback) {
+    async write(message: unknown, _, callback) {
+      let error = null;
       try {
-        await client.rPush(channel, message);
-        callback();
-      } catch (err: unknown) {
-        callback(new Error("Redis RPUSH error", { cause: err }));
+        await client.rPush(
+          channel,
+          typeof message === "string" ? message : JSON.stringify(message)
+        );
+      } catch (cause: unknown) {
+        error = new Error("Redis RPUSH error", { cause });
       }
+      callback(error);
     },
   });
 };
@@ -59,12 +63,13 @@ export const redisReadQueue = async ({
         signal = controller.signal;
       }
       signal.onabort = () => this.push(null);
+      let error = null;
       try {
         await client.connect();
-        callback();
-      } catch (err) {
-        callback(Error("Failed to connect to redis client", { cause: err }));
+      } catch (cause) {
+        error = Error("Failed to connect to redis client", { cause });
       }
+      callback(error);
     },
     async destroy(_error, callback) {
       let error = null;
@@ -87,7 +92,13 @@ export const redisReadQueue = async ({
         while (!paused && !signal?.aborted) {
           const data = await client.brPop(channel, readQueueTimeout / 1000);
           if (data) {
-            paused = !this.push(data.element);
+            let value = null;
+            try {
+              value = JSON.parse(data.element);
+            } catch (err) {
+              value = data.element;
+            }
+            paused = !this.push(value);
           }
         }
       } catch (err) {

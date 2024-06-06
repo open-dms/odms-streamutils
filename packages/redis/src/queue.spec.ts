@@ -27,9 +27,15 @@ describe("redis", () => {
         url: "redis://localhost",
         channel: "queue_key",
       });
-      await finished(stream.end("test1"));
-      expect(mockClient.rPush).toHaveBeenCalled();
-      expect(mockClient.rPush.mock.lastCall).toEqual(["queue_key", "test1"]);
+      stream.write({ testKey: "testValue" });
+      stream.end("test1");
+      await finished(stream);
+      expect(mockClient.rPush).toHaveBeenCalledTimes(2);
+      expect(mockClient.rPush.mock.calls[0]).toEqual([
+        "queue_key",
+        JSON.stringify({ testKey: "testValue" }),
+      ]);
+      expect(mockClient.rPush.mock.calls[1]).toEqual(["queue_key", "test1"]);
     });
 
     it("should handle connection error", async () => {
@@ -67,20 +73,32 @@ describe("redis", () => {
         url: "redis://localhost",
         channel: "queue_key",
       });
-      const response: Array<string> = [];
+
+      const mockResolvedValues = [
+        {
+          key: "queue_key",
+          element: "response1",
+        },
+        {
+          key: "queue_key",
+          element: '{"testKey":"testValue"}',
+        },
+      ];
+
+      const results: Array<unknown> = [];
+      let countStreamChunks = 0;
 
       stream.on("data", (data) => {
-        response.push(data);
-        stream.push(null);
+        results.push(data);
+        if (++countStreamChunks >= mockResolvedValues.length) stream.push(null);
       });
 
-      mockClient.brPop.mockResolvedValueOnce({
-        key: "queue_key",
-        element: "response1",
-      });
+      mockResolvedValues.forEach((mockValue) =>
+        mockClient.brPop.mockResolvedValueOnce(mockValue)
+      );
 
       await finished(stream);
-      expect(response).toEqual(["response1"]);
+      expect(results).toEqual(["response1", { testKey: "testValue" }]);
     });
 
     it("should handle connection error", async () => {
@@ -122,9 +140,7 @@ describe("redis", () => {
     });
 
     it("should handle read error", async () => {
-      mockClient.brPop.mockImplementationOnce(() =>
-        Promise.reject(Error("Some redis error"))
-      );
+      mockClient.brPop.mockRejectedValueOnce(Error("Some redis error"));
 
       const stream = await redisReadQueue({
         url: "redis://localhost",

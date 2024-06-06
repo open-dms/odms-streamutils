@@ -20,10 +20,22 @@ describe("redis stream", () => {
   });
 
   it("should write to redis", async () => {
-    const stream = await redisWriteStream("redis://localhost", "stream_key");
-    await finished(stream.end("test1"));
-    expect(mockClient.xAdd).toHaveBeenCalled();
-    expect(mockClient.xAdd.mock.lastCall).toEqual([
+    const stream = await redisWriteStream({
+      url: "redis://localhost",
+      channel: "stream_key",
+    });
+    stream.write({ testKey: "testValue" });
+    stream.end("test1");
+    await finished(stream);
+    expect(mockClient.xAdd).toHaveBeenCalledTimes(2);
+    expect(mockClient.xAdd.mock.calls[0]).toEqual([
+      "stream_key",
+      "*",
+      {
+        message: '{"testKey":"testValue"}',
+      },
+    ]);
+    expect(mockClient.xAdd.mock.calls[1]).toEqual([
       "stream_key",
       "*",
       {
