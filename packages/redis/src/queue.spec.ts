@@ -2,14 +2,7 @@ import { nextTick } from "@repo/test";
 import { afterEach, describe, expect, it, mock } from "bun:test";
 import { finished } from "node:stream/promises";
 import { redisReadQueue, redisWriteQueue } from ".";
-
-const mockClient = {
-  connect: mock(() => Promise.resolve()),
-  on: () => {},
-  quit: () => Promise.resolve(),
-  rPush: mock().mockResolvedValue(undefined),
-  brPop: mock().mockResolvedValue(undefined),
-};
+import { mockClient } from "./__mocks__/redis";
 
 mock.module("redis", () => ({
   createClient: () => mockClient,

@@ -1,7 +1,9 @@
 {
   "name": "@repo/test",
-  "module": "index.ts",
   "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "@sinonjs/fake-timers": "^11.2.2",

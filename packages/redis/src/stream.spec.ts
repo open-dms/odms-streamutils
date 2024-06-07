@@ -1,14 +1,7 @@
 import { afterEach, describe, expect, it, mock } from "bun:test";
 import { finished } from "node:stream/promises";
 import { redisWriteStream } from ".";
-
-const mockClient = {
-  connect: () => Promise.resolve(),
-  on: () => {},
-  xAdd: mock((key: string, id: string, message: Record<string, string>) =>
-    Promise.resolve()
-  ),
-};
+import { mockClient } from "./__mocks__/redis";
 
 mock.module("redis", () => ({
   createClient: () => mockClient,
